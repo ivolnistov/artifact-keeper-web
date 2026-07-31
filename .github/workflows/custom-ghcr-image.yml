@@ -3,20 +3,20 @@ name: Publish Custom GHCR Image
 on:
   push:
     branches:
-      - custom/lifecycle-repository-scope-image
+      - custom/lifecycle-upstream-main-image
   workflow_dispatch:
     inputs:
       tag:
         description: Public image tag
         required: true
-        default: lifecycle-custom
+        default: lifecycle-custom-20260731
 
 permissions: {}
 
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  CUSTOM_TAG: ${{ inputs.tag || 'lifecycle-custom-20260730' }}
+  CUSTOM_TAG: ${{ inputs.tag || 'lifecycle-custom-20260731' }}
 
 jobs:
   build:
