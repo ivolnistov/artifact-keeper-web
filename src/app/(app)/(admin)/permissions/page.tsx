@@ -96,6 +96,12 @@ const EMPTY_FORM: PermissionForm = {
   actions: ["read"],
 };
 
+const PRINCIPAL_TYPE_LABELS: Record<PermissionPrincipalType, string> = {
+  user: "User",
+  service_account: "Service Account",
+  group: "Group",
+};
+
 // -- page --
 
 export default function PermissionsPage() {
@@ -281,11 +287,8 @@ export default function PermissionsPage() {
       sortable: true,
       cell: (p) => (
         <div className="flex items-center gap-2">
-          <Badge
-            variant="outline"
-            className="text-xs capitalize"
-          >
-            {p.principal_type}
+          <Badge variant="outline" className="text-xs">
+            {PRINCIPAL_TYPE_LABELS[p.principal_type]}
           </Badge>
           <span className="text-sm font-medium">
             {p.principal_name ?? p.principal_id}
@@ -732,7 +735,7 @@ export default function PermissionsPage() {
           if (!o) setSelectedPermission(null);
         }}
         title="Delete Permission"
-        description="Deleting this permission will revoke the associated access. Users or groups will lose the granted actions on the target resource. This action cannot be undone."
+        description="Deleting this permission will revoke the associated access. Users, service accounts, or groups will lose the granted actions on the target resource. This action cannot be undone."
         confirmText="Delete Permission"
         danger
         loading={deleteMutation.isPending}
